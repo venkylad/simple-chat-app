@@ -12,8 +12,8 @@ import NavApp from "./AppBar";
 export default function App() {
   const [input, setInput] = useState("");
   const [message, setMessage] = useState([]);
+  const [user, setUser] = useState(null);
   const [username, setUsername] = useState(null);
-  const [userObj, setUserObj] = useState(null);
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -22,15 +22,16 @@ export default function App() {
       username: username,
       timeStamp: firebase.firestore.FieldValue.serverTimestamp()
     });
+    setUsername(user.displayName);
     setInput("");
   };
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
-      setUserObj(user);
+      setUser(user);
       setUsername(user.displayName);
     });
-  }, [userObj]);
+  }, []);
 
   useEffect(() => {
     db.collection("messages")
@@ -46,7 +47,7 @@ export default function App() {
 
   return (
     <div className="app">
-      {userObj === null ? (
+      {user === null ? (
         <SignIn />
       ) : (
         <>
