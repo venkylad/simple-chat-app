@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { auth } from "./firebase";
 import firebase from "firebase";
-import "./styles.css";
 import { FormControl, InputLabel, Input, Button } from "@material-ui/core";
 import { Send } from "@material-ui/icons";
 import Message from "./Message";
@@ -17,13 +16,15 @@ export default function App() {
 
   const handleClick = (e) => {
     e.preventDefault();
-    db.collection("messages").add({
-      msg: input,
-      username: username,
-      timeStamp: firebase.firestore.FieldValue.serverTimestamp()
-    });
-    setUsername(user.displayName);
-    setInput("");
+    if (input.length !== 0) {
+      db.collection("messages").add({
+        msg: input,
+        username: username,
+        timeStamp: firebase.firestore.FieldValue.serverTimestamp()
+      });
+      setUsername(user.displayName);
+      setInput("");
+    }
   };
 
   useEffect(() => {
