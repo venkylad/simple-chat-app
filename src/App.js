@@ -52,7 +52,7 @@ export default function App() {
       ) : (
         <>
           <NavApp username={username} />
-          {messages}
+
           <form onSubmit={handleClick}>
             <FormControl className="input">
               <InputLabel>Type a message</InputLabel>
@@ -72,6 +72,7 @@ export default function App() {
               </Button>
             </FormControl>
           </form>
+          {messages}
         </>
       )}
     </div>
